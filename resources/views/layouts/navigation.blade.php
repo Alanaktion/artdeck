@@ -35,7 +35,7 @@
             <a href="{{ route('tags.index') }}" class="nav-link {{ Route::is('tags.*') ? 'nav-link__current' : '' }}">
                 {{ __('Tags') }}
             </a>
-            <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard*', 'login', 'register') ? 'nav-link__current' : '' }}">
+            <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard*') ? 'nav-link__current' : '' }}">
                 {{ __('Dashboard') }}
             </a>
         </nav>

@@ -8,6 +8,9 @@ class TagsController extends Controller
 {
     public function __construct()
     {
+        if (!config('auth.allow_guests')) {
+            $this->middleware('auth');
+        }
         $this->authorizeResource(Tag::class, 'tag');
     }
 
