@@ -108,6 +108,29 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Allow users to register new accounts.
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, this effectively means that anyone can register an account,
+    | upload works, add tags, etc.
+    |
+    */
+
     'allow_registration' => env('ALLOW_REGISTRATION', true),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allow non-registered guest users to view the site.
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, viewing content on the site will be available without
+    | requiring users to log in or register an account. Accounts are always
+    | required to upload works, add tags, etc.
+    |
+    */
+
+    'allow_guests' => env('ALLOW_GUESTS', true),
 
 ];

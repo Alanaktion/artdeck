@@ -1,5 +1,5 @@
 <x-app-layout :title="__('Works')">
-    <div class="sm:flex">
+    <div class="sm:flex gap-6">
         <div class="sm:w-60">
             @auth
                 <a class="btn btn-primary" href="{{ route('works.create') }}">

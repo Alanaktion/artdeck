@@ -10,6 +10,11 @@ use Intervention\Image\Facades\Image;
 
 class WorksController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Work::class, 'work');
+    }
+
     /**
      * Display a listing of works.
      */
@@ -122,13 +127,12 @@ class WorksController extends Controller
      */
     public function addTag(Request $request, Work $work)
     {
+        $this->authorize('update', $work);
+
         $request->validate([
             'tag' => 'required|string|max:255',
         ]);
-        $tag = Tag::firstOrCreate(
-            ['name' => $request->input('tag')],
-            ['user_id' => $request->user()->id],
-        );
+        $tag = Tag::firstOrCreate(['name' => $request->input('tag')]);
         $work->tags()->attach($tag, [
             'user_id' => $request->user()->id,
         ]);
@@ -141,6 +145,8 @@ class WorksController extends Controller
      */
     public function removeTag(Request $request, Work $work, Tag $tag)
     {
+        $this->authorize('update', $work);
+
         $work->tags()->detach($tag);
         return redirect()->route('works.show', $work);
     }
@@ -156,7 +162,7 @@ class WorksController extends Controller
     /**
      * Remove the specified work from storage.
      */
-    public function destroy($id)
+    public function destroy(Work $work)
     {
         //
     }

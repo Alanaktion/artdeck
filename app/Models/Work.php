@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int $id
+ * @property string $type
+ * @property string|null $title
+ * @property string|null $description
+ * @property string|null $sha1
+ * @property string|null $file_path
+ * @property int|null $file_size
+ * @property int|null $width
+ * @property int|null $height
+ * @property string|null $uploader_ip
+ * @property int|null $user_id
+ * @property string|null $source_url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User|null $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|Tag[] $tags
+ */
 class Work extends Model
 {
     use HasFactory;
@@ -31,6 +50,23 @@ class Work extends Model
             return null;
         }
         return '/storage/works/thumbnail/' . $this->attributes['sha1'] . '.jpg';
+    }
+
+    protected static function booted()
+    {
+        static::creating(function (Work $work) {
+            if ($work->ip === null && request()->ip()) {
+                $work->ip = request()->ip();
+            }
+            if ($work->user_id === null && auth()->check()) {
+                $work->user_id = auth()->id();
+            }
+        });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function tags()

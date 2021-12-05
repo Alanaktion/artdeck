@@ -1,6 +1,6 @@
 <x-app-layout :title="$work->title">
-    <div class="sm:flex">
-        <div class="sm:w-60 sm:mr-4">
+    <div class="sm:flex gap-6">
+        <div class="sm:w-60">
             <dl>
                 <dt class="uppercase text-gray-600 dark:text-gray-400 text-xs mb-1">
                     {{ __('Type') }}
