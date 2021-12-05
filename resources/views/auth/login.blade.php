@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -35,7 +35,7 @@
             <!-- Remember Me -->
             <div class="block mt-4">
                 <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50" name="remember">
+                    <input id="remember_me" type="checkbox" name="remember">
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
                 </label>
             </div>
@@ -51,4 +51,12 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+
+    @if (config('auth.allow_registration'))
+        <div class="mt-6 text-center">
+            <a href="{{ route('register') }}" class="link">
+                {{ __('Don\'t have an account?') }}
+            </a>
+        </div>
+    @endif
+</x-app-layout>

@@ -1,10 +1,10 @@
-<x-app-layout :title="__('Not Found')">
+<x-app-layout :title="__('Unauthorized')">
     <div class="py-8 md:py-20 text-center">
         <p class="text-4xl mb-4">
-            {{ __('Not Found') }}
+            {{ __('Forbidden') }}
         </p>
         <p class="text-gray-600 dark:text-gray-400">
-            {{ __('The page you are looking for could not be found.') }}
+            {{ __('You are not authorized to access this page.') }}
         </p>
     </div>
 </x-app-layout>

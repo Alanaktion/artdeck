@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,9 +11,7 @@ use Intervention\Image\Facades\Image;
 class WorksController extends Controller
 {
     /**
-     * Display a listing of the work.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of works.
      */
     public function index(Request $request)
     {
@@ -20,28 +19,38 @@ class WorksController extends Controller
             'type' => 'sometimes|in:image,video,audio,text',
             'tags' => 'sometimes|string',
         ]);
-        $works = Work::latest();
+        $works = Work::with('tags:id,name')
+            ->latest();
         if ($request->input('type')) {
             $works->where('type', $request->input('type'));
         }
-        // TODO: search by tags
+        if ($request->input('tags')) {
+            $searchTags = preg_split('/\s/', $request->input('tags'));
+            $works->whereHas('tags', function ($query) use ($searchTags) {
+                $query->whereIn('name', $searchTags);
+            });
+        }
+        $result = $works->paginate();
+
+        $tagNames = collect($result->items())->pluck('tags')->flatten()->unique()->pluck('name');
+        $tags = Tag::whereIn('name', $tagNames)
+            ->withCount('works')
+            ->orderBy('name', 'asc')
+            ->get();
+
         return view('works.index', [
-            'title' => __('Works'),
-            'works' => $works->paginate(),
+            'works' => $result,
+            'tags' => $tags,
             'searchTags' => $request->input('tags'),
         ]);
     }
 
     /**
      * Show the form for uploading a new work.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('works.create', [
-            'title' => __('Add work'),
-        ]);
+        return view('works.create');
     }
 
     /**
@@ -96,40 +105,56 @@ class WorksController extends Controller
      */
     public function show(Work $work)
     {
+        $work->load('tags:id,name');
+        $tagNames = $work->tags->pluck('name');
+        $tags = Tag::whereIn('name', $tagNames)
+            ->withCount('works')
+            ->orderBy('name', 'asc')
+            ->get();
         return view('works.show', [
-            'title' => $work->title,
             'work' => $work,
+            'tags' => $tags,
         ]);
     }
 
     /**
-     * Show the form for editing the specified work.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Add a tag to the specified work.
      */
-    public function edit($id)
+    public function addTag(Request $request, Work $work)
     {
-        //
+        $request->validate([
+            'tag' => 'required|string|max:255',
+        ]);
+        $tag = Tag::firstOrCreate(
+            ['name' => $request->input('tag')],
+            ['user_id' => $request->user()->id],
+        );
+        $work->tags()->attach($tag, [
+            'user_id' => $request->user()->id,
+        ]);
+
+        return redirect()->route('works.show', $work);
+    }
+
+    /**
+     * Remove a tag from the specified work.
+     */
+    public function removeTag(Request $request, Work $work, Tag $tag)
+    {
+        $work->tags()->detach($tag);
+        return redirect()->route('works.show', $work);
     }
 
     /**
      * Update the specified work in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Work $work)
     {
         //
     }
 
     /**
      * Remove the specified work from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {

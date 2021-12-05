@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout :title="__('Add work')">
     <form
         class="w-full sm:max-w-md sm:mx-auto mt-6 px-6 py-4 bg-white dark:bg-gray-900 shadow-md overflow-hidden sm:rounded-lg"
         action="{{ route('works.store') }}" method="post" enctype="multipart/form-data"
@@ -33,6 +33,8 @@
             <input id="source_url" class="block mt-1 w-full" type="url" name="source_url" :value="old('source_url')">
         </div>
 
-        <button type="submit" class="btn btn-primary">{{ __('Add work') }}</button>
+        <div class="flex justify-end">
+            <button type="submit" class="btn btn-primary">{{ __('Add work') }}</button>
+        </div>
     </form>
-</x-guest-layout>
+</x-app-layout>

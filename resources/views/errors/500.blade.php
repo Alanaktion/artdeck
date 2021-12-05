@@ -1,10 +1,10 @@
-<x-app-layout :title="__('Not Found')">
+<x-app-layout :title="__('Unauthorized')">
     <div class="py-8 md:py-20 text-center">
         <p class="text-4xl mb-4">
-            {{ __('Not Found') }}
+            {{ __('Server Error') }}
         </p>
         <p class="text-gray-600 dark:text-gray-400">
-            {{ __('The page you are looking for could not be found.') }}
+            {{ __('Something went wrong displaying this page. Try again later.') }}
         </p>
     </div>
 </x-app-layout>
