@@ -55,8 +55,8 @@ class Work extends Model
     protected static function booted()
     {
         static::creating(function (Work $work) {
-            if ($work->ip === null && request()->ip()) {
-                $work->ip = request()->ip();
+            if ($work->uploader_ip === null && request()->ip()) {
+                $work->uploader_ip = request()->ip();
             }
             if ($work->user_id === null && auth()->check()) {
                 $work->user_id = auth()->id();

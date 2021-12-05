@@ -73,8 +73,14 @@ class WorksController extends Controller
             'source_url' => 'nullable|url',
         ]);
 
-        // TODO: check sha1 against existing files before storing anything
+        // Check if the file already exists
+        $sha1 = sha1_file($request->file('file')->getRealPath());
+        if ($existingWork = Work::where('sha1', $sha1)->first()) {
+            return redirect()->route('works.show', $existingWork)
+                ->with('error', __('This file has already been uploaded.'));
+        }
 
+        // Store the uploaded file
         $work = new Work();
         $work->fill($request->only(['title', 'description', 'source_url']));
         $type = explode('/', $request->file('file')->getMimeType())[0];
@@ -84,7 +90,7 @@ class WorksController extends Controller
             $work->type = 'text';
         }
         $work->file_size = $request->file('file')->getSize();
-        $work->sha1 = sha1_file($request->file('file')->getRealPath());
+        $work->sha1 = $sha1;
         $work->file_path = $request->file('file')->store('works/' . $work->type, 'public');
 
         // Create thumbnail for work
@@ -99,13 +105,10 @@ class WorksController extends Controller
             $image->save(storage_path("app/public/works/thumbnail/{$work->sha1}.jpg"));
         }
 
-        $work->uploader_ip = $request->ip();
-        if ($request->user()) {
-            $work->user_id = $request->user()->id;
-        }
         $work->save();
 
-        return redirect()->route('works.show', $work);
+        return redirect()->route('works.show', $work)
+            ->with('success', __('The file has been uploaded.'));
     }
 
     /**

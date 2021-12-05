@@ -7,7 +7,7 @@
 
         <div class="mb-4">
             <label
-                class="flex flex-col items-center relative cursor-pointer rounded border hover:border-primary-500 hover:bg-primary-50 focus-within:border-primary-500 focus-within:ring focus-within:ring-primary-100 overflow-hidden p-4"
+                class="flex flex-col items-center relative cursor-pointer rounded border hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900 focus-within:border-primary-500 focus-within:ring focus-within:ring-primary-100 dark:focus:ring-primary-700 overflow-hidden p-4"
                 x-data="{ file: null }"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
