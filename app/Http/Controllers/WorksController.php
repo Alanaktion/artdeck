@@ -25,7 +25,7 @@ class WorksController extends Controller
     {
         $request->validate([
             'type' => 'sometimes|in:image,video,audio,text',
-            'tags' => 'sometimes|string',
+            'tags' => 'sometimes|nullable|string',
         ]);
         $works = Work::with('tags:id,name')
             ->latest();
@@ -38,7 +38,7 @@ class WorksController extends Controller
                 $query->whereIn('name', $searchTags);
             });
         }
-        $result = $works->paginate();
+        $result = $works->paginate()->withQueryString();
 
         $tagNames = collect($result->items())->pluck('tags')->flatten()->unique()->pluck('name');
         $tags = Tag::whereIn('name', $tagNames)

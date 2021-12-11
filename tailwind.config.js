@@ -2,11 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-    mode: 'jit',
-
-    darkMode: 'media',
-
-    purge: [
+    content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
@@ -15,7 +11,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                gray: colors.warmGray,
+                gray: colors.stone,
                 primary: colors.amber,
             },
             //

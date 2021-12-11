@@ -2,9 +2,9 @@
     <div class="container">
         <div class="flex flex-wrap items-center gap-4 py-4 border-b">
             <a href="/" class="text-2xl font-light hover:text-primary-600 dark:hover:text-primary-500">{{ config('app.name', 'ArtDeck') }}</a>
-            <form class="order-2 flex-grow flex-shrink-0 sm:flex-grow-0 sm:ml-auto sm:order-none" action="/works">
+            <form class="order-2 grow shrink-0 sm:grow-0 sm:ml-auto sm:order-none" action="{{ route('works.index') }}">
                 <label for="search_tags" class="sr-only">Search works</label>
-                <input class="w-full sm:w-auto" type="search" name="tags" id="search_tags" placeholder="Search works" value="{{ $searchTags ?? '' }}">
+                <input class="w-full sm:w-auto" type="search" name="tags" id="search_tags" placeholder="Search works" value="{{ request()->input('tags') }}">
             </form>
             @auth
                 <x-dropdown align="right" width="48" class="ml-auto sm:ml-0">
