@@ -10,7 +10,15 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@milkdown/core": "^5.2.1",
+        "@milkdown/plugin-clipboard": "^5.2.1",
+        "@milkdown/plugin-history": "^5.2.1",
+        "@milkdown/plugin-slash": "^5.2.1",
+        "@milkdown/plugin-upload": "^5.2.1",
+        "@milkdown/preset-commonmark": "^5.2.1",
+        "@milkdown/theme-nord": "^5.2.1",
         "@tailwindcss/forms": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.0",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.0",
         "axios": "^0.21",

@@ -56,9 +56,15 @@ class WorksController extends Controller
     /**
      * Show the form for uploading a new work.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('works.create');
+        $request->validate([
+            'type' => 'sometimes|string|in:image,text',
+        ]);
+        $type = $request->input('type', 'image');
+        return view('works.create', [
+            'type' => $type,
+        ]);
     }
 
     /**
@@ -66,6 +72,8 @@ class WorksController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO: handle text uploads with content editor as description, and no file
+        // TODO: also support uploading a text-type file, no UI for that yet
         $request->validate([
             'file' => 'required|file',
             'title' => 'nullable|string|max:255',
