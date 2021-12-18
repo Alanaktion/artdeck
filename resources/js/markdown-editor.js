@@ -1,20 +1,16 @@
 import { Editor, defaultValueCtx, editorViewCtx, rootCtx, serializerCtx, themeFactory } from '@milkdown/core';
-import { commonmark, heading, paragraph } from '@milkdown/preset-commonmark';
+import { commonmark } from '@milkdown/preset-commonmark';
 import { clipboard } from '@milkdown/plugin-clipboard';
 import { history } from '@milkdown/plugin-history';
-import { slash } from '@milkdown/plugin-slash';
 import { upload } from '@milkdown/plugin-upload';
+import { mixin, slots } from '@milkdown/theme-nord';
 
-// TODO: add theming either here or in Tailwind somehow for the UI elements
-const theme = themeFactory({});
+import { editorMenu } from './markdown-editor-menu';
 
-// const nodes = commonmark
-//     .configure(paragraph, {
-//         className: () => '',
-//     })
-//     .configure(heading, {
-//         className: () => '',
-//     });
+const theme = themeFactory({
+    mixin,
+    slots,
+});
 
 async function initEditor() {
     const rootElement = document.querySelector('[data-markdown-editor]');
@@ -30,11 +26,13 @@ async function initEditor() {
         .use(commonmark.headless())
         .use(clipboard)
         .use(history)
-        .use(slash)
+        .use(editorMenu)
         .use(upload)
         .create();
 
     editorElement.querySelector('.editor').classList.add(
+        'px-2',
+        'py-1',
         'prose',
         'xl:prose-lg',
         'dark:prose-invert',
@@ -49,7 +47,7 @@ async function initEditor() {
             return serializer(editorView.state.doc);
         });
 
-    rootElement.closest('form').addEventListener('submit', event => {
+    rootElement.closest('form').addEventListener('submit', () => {
         valueElement.value = getMarkdown();
     });
 }

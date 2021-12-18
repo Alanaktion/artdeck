@@ -13,6 +13,7 @@
         "@milkdown/core": "^5.2.1",
         "@milkdown/plugin-clipboard": "^5.2.1",
         "@milkdown/plugin-history": "^5.2.1",
+        "@milkdown/plugin-menu": "^5.2.1",
         "@milkdown/plugin-slash": "^5.2.1",
         "@milkdown/plugin-upload": "^5.2.1",
         "@milkdown/preset-commonmark": "^5.2.1",
