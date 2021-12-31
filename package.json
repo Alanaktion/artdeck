@@ -17,6 +17,7 @@
         "@milkdown/plugin-slash": "^5.2.1",
         "@milkdown/plugin-upload": "^5.2.1",
         "@milkdown/preset-commonmark": "^5.2.1",
+        "@milkdown/preset-gfm": "^5.3.1",
         "@milkdown/theme-nord": "^5.2.1",
         "@tailwindcss/forms": "^0.4.0",
         "@tailwindcss/typography": "^0.5.0",
@@ -27,6 +28,8 @@
         "lodash": "^4.17.19",
         "postcss": "^8.4.4",
         "postcss-import": "^12.0.1",
-        "tailwindcss": "^3.0.0"
+        "tailwindcss": "^3.0.0",
+        "vue": "^3.2.26",
+        "vue-loader": "^16.8.3"
     }
 }

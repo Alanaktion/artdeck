@@ -14,6 +14,9 @@ const theme = themeFactory({
 
 async function initEditor() {
     const rootElement = document.querySelector('[data-markdown-editor]');
+    if (!rootElement) {
+        return;
+    }
     const editorElement = rootElement.querySelector('[data-editor-render]');
     const valueElement = rootElement.querySelector('[data-editor-value]');
 

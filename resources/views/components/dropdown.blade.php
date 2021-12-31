@@ -1,18 +1,12 @@
 @props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white dark:bg-gray-800'])
 
 @php
-switch ($align) {
-    case 'left':
-        $alignmentClasses = 'origin-top-left left-0';
-        break;
-    case 'top':
-        $alignmentClasses = 'origin-top';
-        break;
-    case 'right':
-    default:
-        $alignmentClasses = 'origin-top-right right-0';
-        break;
-}
+$alignmentClasses = match ($align) {
+    'left' => 'origin-top-left left-0',
+    'top' => 'origin-top',
+    'right' => 'origin-top-right right-0',
+    default => 'origin-top-right right-0',
+};
 
 switch ($width) {
     case '48':

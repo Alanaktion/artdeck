@@ -15,13 +15,13 @@
             <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Display name')" />
-                <input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus>
+                <input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ old('name') }}" required autofocus>
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
-                <input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required>
+                <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email') }}" required>
             </div>
 
             <!-- Password -->
