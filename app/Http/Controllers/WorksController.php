@@ -103,14 +103,16 @@ class WorksController extends Controller
 
         // Create thumbnail for work
         if ($work->type == 'image') {
-            $image = Image::make($request->file('file'));
-            $work->width = $image->width();
-            $work->height = $image->height();
-            $image->resize(240, 240, function ($constraint) {
+            $orig = Image::make($request->file('file'))->orientate();
+            $work->width = $orig->width();
+            $work->height = $orig->height();
+            $thumb = Image::canvas($orig->width(), $orig->height(), '#fff');
+            $thumb->insert($orig);
+            $thumb->resize(240, 240, function ($constraint) {
                 $constraint->aspectRatio();
             });
             Storage::disk('public')->makeDirectory('works/thumbnail');
-            $image->save(storage_path("app/public/works/thumbnail/{$work->sha1}.jpg"));
+            $thumb->save(storage_path("app/public/works/thumbnail/{$work->sha1}.jpg"));
         }
 
         $work->save();
