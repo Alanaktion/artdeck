@@ -5,8 +5,6 @@ import {
     InsertHr,
     InsertImage,
     InsertTable,
-    LiftListItem,
-    SinkListItem,
     ToggleBold,
     ToggleItalic,
     ToggleLink,
@@ -21,11 +19,9 @@ import {
 import {
     EditorState,
     EditorView,
-    liftListItem,
     MarkType,
     redo,
     setBlockType,
-    sinkListItem,
     undo,
     wrapIn,
 } from '@milkdown/prose';

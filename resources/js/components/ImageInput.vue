@@ -58,5 +58,5 @@ export default {
 
         return { label, filename, img, onFileChange };
     },
-}
+};
 </script>

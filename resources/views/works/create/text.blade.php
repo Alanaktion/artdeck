@@ -1,5 +1,5 @@
 <form
-    class="w-full sm:max-w-4xl sm:mx-auto mt-6 px-6 py-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg"
+    class="w-full sm:max-w-5xl sm:mx-auto mt-6 px-6 py-4 bg-white dark:bg-gray-900 shadow-md sm:rounded-lg"
     action="{{ route('works.store') }}" method="post" enctype="multipart/form-data"
 >
     @csrf
@@ -17,7 +17,7 @@
 
     <div class="mb-4">
         <x-label for="description" :value="__('Content')" />
-        <x-markdown-editor id="description" class="mt-1" name="description" value="{{ old('description') }}" />
+        <markdown-editor id="description" class="mt-1" name="description" text="{{ old('description') }}"></markdown-editor>
     </div>
 
     <div class="flex justify-end">
