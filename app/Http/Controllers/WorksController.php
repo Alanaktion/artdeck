@@ -139,35 +139,6 @@ class WorksController extends Controller
     }
 
     /**
-     * Add a tag to the specified work.
-     */
-    public function addTag(Request $request, Work $work)
-    {
-        $this->authorize('update', $work);
-
-        $request->validate([
-            'tag' => 'required|string|max:255',
-        ]);
-        $tag = Tag::firstOrCreate(['name' => $request->input('tag')]);
-        $work->tags()->attach($tag, [
-            'user_id' => $request->user()->id,
-        ]);
-
-        return redirect()->route('works.show', $work);
-    }
-
-    /**
-     * Remove a tag from the specified work.
-     */
-    public function removeTag(Request $request, Work $work, Tag $tag)
-    {
-        $this->authorize('update', $work);
-
-        $work->tags()->detach($tag);
-        return redirect()->route('works.show', $work);
-    }
-
-    /**
      * Update the specified work in storage.
      */
     public function update(Request $request, Work $work)

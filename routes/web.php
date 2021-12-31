@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\WorksController;
 use Illuminate\Support\Facades\Route;
@@ -16,14 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/works');
+Route::redirect('/', '/works', 301);
 
 Route::resource('/works', WorksController::class)
     ->except(['edit']);
-Route::post('/works/{work}/tags', [WorksController::class, 'addTag'])
-    ->name('works.tags.add');
-Route::delete('/works/{work}/tags/{tag}', [WorksController::class, 'removeTag'])
-    ->name('works.tags.remove');
 
 Route::resource('/tags', TagsController::class)
     ->only(['index']);

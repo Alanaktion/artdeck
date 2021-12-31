@@ -40,26 +40,16 @@
                     {{ __('Tags') }}
                 </dt>
                 <dd class="mb-4">
-                    <div class="flex flex-wrap gap-2">
-                        @forelse($tags as $tag)
-                            <x-tag-link :tag="$tag" :work="$work" />
-                        @empty
-                            <span class="text-gray-600 dark:text-gray-400">{{ __('None') }}</span>
-                        @endforelse
-                    </div>
                     @auth
-                        <form class="flex mt-4" action="{{ route('works.tags.add', $work) }}" method="post">
-                            @csrf
-                            <input class="flex-1 min-w-0 !rounded-r-none" type="text" name="tag" placeholder="{{ __('Add tag') }}">
-                            <button type="submit" class="btn btn-primary px-3 rounded-l-none">
-                                <span class="sr-only">
-                                    {{ __('Add tag') }}
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </form>
+                        <tag-list-editor :work-id="{{ $work->id }}"></tag-list-editor>
+                    @else
+                        <div class="flex flex-wrap gap-2">
+                            @forelse($tags as $tag)
+                                <x-tag-link :tag="$tag" :work="$work" />
+                            @empty
+                                <span class="text-gray-600 dark:text-gray-400">{{ __('None') }}</span>
+                            @endforelse
+                        </div>
                     @endauth
                 </dd>
                 @if ($work->source_url)
