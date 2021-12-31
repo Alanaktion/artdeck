@@ -79,6 +79,7 @@ class WorksController extends Controller
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'source_url' => 'nullable|url',
+            'tags' => ['sometimes', 'nullable', 'string', 'regex:/^[a-z0-9_ ]*$/i'],
         ]);
 
         // Check if the file already exists
@@ -116,6 +117,16 @@ class WorksController extends Controller
         }
 
         $work->save();
+
+        if ($request->input('tags')) {
+            $tags = preg_split('/\s/', $request->input('tags'));
+            foreach ($tags as $tagName) {
+                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $work->tags()->attach($tag, [
+                    'user_id' => $request->user()->id,
+                ]);
+            }
+        }
 
         return redirect()->route('works.show', $work)
             ->with('success', __('The file has been uploaded.'));

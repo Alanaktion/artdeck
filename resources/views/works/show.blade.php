@@ -1,6 +1,15 @@
 <x-app-layout :title="$work->title">
     <div class="sm:flex gap-6">
         <div class="sm:w-60">
+            <header class="mb-4 md:mb-6">
+                @if ($work->title)
+                    <h1 class="text-3xl mb-2">{{ $work->title }}</h1>
+                @endif
+                @if ($work->type != 'text' && $work->description)
+                    <p class="mb-4 whitespace-pre-wrap">{{ $work->description }}</p>
+                @endif
+            </header>
+
             <dl>
                 <dt class="uppercase text-gray-600 dark:text-gray-400 text-xs mb-1">
                     {{ __('Type') }}
@@ -8,7 +17,7 @@
                 <dd class="mb-4">
                     <span class="capitalize">{{ __($work->type) }}</span>
                     @if ($work->type == 'image' && $work->file_path)
-                        <span class="text-gray-600 dark:text-gray-400">&middot;</span>
+                        <span class="text-gray-600 dark:text-gray-400 mx-2">&middot;</span>
                         <span class="uppercase">{{ pathinfo($work->file_path, PATHINFO_EXTENSION) }}</span>
                     @endif
                 </dd>
@@ -45,7 +54,7 @@
                     @else
                         <div class="flex flex-wrap gap-2">
                             @forelse($tags as $tag)
-                                <x-tag-link :tag="$tag" :work="$work" />
+                                <x-tag-link :tag="$tag" />
                             @empty
                                 <span class="text-gray-600 dark:text-gray-400">{{ __('None') }}</span>
                             @endforelse
@@ -68,11 +77,9 @@
             </a>
         </div>
         <div class="flex-1">
-            <img src="{{ $work->file_url }}" alt="" class="mb-6">
-            @if ($work->title)
-                <h1 class="text-3xl mb-2">{{ $work->title }}</h1>
-            @endif
-            @if ($work->description)
+            @if ($work->file_path)
+                <img src="{{ $work->file_url }}" alt="" class="mb-6">
+            @elseif ($work->type == 'text')
                 <p class="mb-4 whitespace-pre-wrap">{{ $work->description }}</p>
             @endif
         </div>

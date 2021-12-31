@@ -24,7 +24,7 @@ class WorkTagsController extends Controller
         $this->authorize('update', $work);
 
         $request->validate([
-            'tag' => 'required|string|max:255',
+            'tag' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9_ ]*$/i'],
         ]);
         $tag = Tag::firstOrCreate(['name' => $request->input('tag')]);
         $work->tags()->attach($tag, [

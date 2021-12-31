@@ -10,7 +10,7 @@
     </div>
 
     <div class="mb-4">
-        <x-label for="title" :value="__('Title')" />
+        <x-label for="title" :value="__('Title')" optional />
         <input id="title" class="block mt-1 w-full" type="text" name="title" value="{{ old('title') }}">
     </div>
 
@@ -22,6 +22,11 @@
     <div class="mb-4">
         <x-label for="source_url" :value="__('Source URL')" optional />
         <input id="source_url" class="block mt-1 w-full" type="url" name="source_url" value="{{ old('source_url') }}">
+    </div>
+
+    <div class="mb-4">
+        <x-label for="tags" :value="__('Tags')" optional />
+        <textarea id="tags" class="block mt-1 w-full" name="tags" rows="2">{{ old('tags') }}</textarea>
     </div>
 
     <div class="flex justify-end">
