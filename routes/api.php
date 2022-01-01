@@ -14,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('/works/{work}/tags', WorkTagsController::class);
+Route::apiResource('/works/{work}/tags', WorkTagsController::class)
+    ->names('api.works.tags');
