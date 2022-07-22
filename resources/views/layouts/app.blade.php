@@ -8,11 +8,10 @@
         <title>{{ !empty($title) ? $title . ' - ' . config('app.name', 'ArtDeck') : config('app.name', 'ArtDeck') }}</title>
 
         <link rel="shortcut icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
         @routes
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
         @include('layouts.navigation')
