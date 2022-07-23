@@ -19,11 +19,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            'ziggy': 'vendor/tightenco/ziggy/dist/vue.es.js',
             'vue': 'vue/dist/vue.esm-bundler.js',
         }
-    },
-    optimizeDeps: {
-        include: ["ziggy"],
     },
 });

@@ -1,17 +1,14 @@
 import './bootstrap';
 
 import { createApp } from 'vue';
-import { ZiggyVue } from 'ziggy';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { i18nVue } from 'laravel-vue-i18n';
-import ImageInput from './components/ImageInput.vue';
-import TagListEditor from './components/TagListEditor.vue';
-import MarkdownEditor from './components/MarkdownEditor.vue';
 
 createApp({
     components: {
-        ImageInput,
-        TagListEditor,
-        MarkdownEditor,
+        ImageInput: () => import('./components/ImageInput.vue'),
+        TagListEditor: () => import('./components/TagListEditor.vue'),
+        MarkdownEditor: () => import('./components/MarkdownEditor.vue'),
     },
 }).use(ZiggyVue, Ziggy).use(i18nVue).mount('#main');
 
