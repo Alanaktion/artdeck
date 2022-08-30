@@ -1,14 +1,14 @@
 import './bootstrap';
 
-import { createApp } from 'vue';
+import { createApp, defineAsyncComponent } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { i18nVue } from 'laravel-vue-i18n';
 
 createApp({
     components: {
-        ImageInput: () => import('./components/ImageInput.vue'),
-        TagListEditor: () => import('./components/TagListEditor.vue'),
-        MarkdownEditor: () => import('./components/MarkdownEditor.vue'),
+        ImageInput: defineAsyncComponent(() => import('./components/ImageInput.vue')),
+        TagListEditor: defineAsyncComponent(() => import('./components/TagListEditor.vue')),
+        TextEditor: defineAsyncComponent(() => import('./components/TextEditor.vue')),
     },
 }).use(ZiggyVue, Ziggy).use(i18nVue).mount('#main');
 

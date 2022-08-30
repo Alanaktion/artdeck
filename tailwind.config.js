@@ -13,7 +13,7 @@ module.exports = {
         extend: {
             colors: {
                 gray: colors.stone,
-                primary: colors.amber,
+                primary: colors.pink,
             },
         },
         container: {
