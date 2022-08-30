@@ -15,17 +15,11 @@
         "vite": "^3.0.2"
     },
     "dependencies": {
-        "@editorjs/editorjs": "^2.25.0",
-        "@editorjs/header": "^2.6.2",
-        "@editorjs/link": "^2.4.1",
-        "@editorjs/list": "^1.7.0",
-        "@editorjs/simple-image": "^1.4.1",
-        "@editorjs/table": "^2.0.4",
-        "@editorjs/underline": "^1.0.0",
         "alpinejs": "^3.4.2",
         "axios": "^0.27.2",
         "laravel-vue-i18n": "^2.1.1",
         "lodash": "^4.17.19",
+        "vditor": "^3.8.17",
         "vue": "^3.2.26"
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="editorjs-wrapper">
+    <div class="editor-wrapper">
         <input type="hidden" :name="name" v-model="data">
         <div ref="root"></div>
     </div>
@@ -7,12 +7,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import EditorJS from '@editorjs/editorjs';
-import Header from '@editorjs/header';
-import SimpleImage from '@editorjs/simple-image';
-import List from '@editorjs/list';
-import Table from '@editorjs/table';
-import Underline from '@editorjs/underline';
+import Vditor from 'vditor';
+import 'vditor/dist/index.css';
 
 const props = defineProps({
     text: String,
@@ -24,46 +20,23 @@ const props = defineProps({
 
 const root = ref(null);
 const editor = ref(null);
-const dirty = ref(false);
 const data = ref(props.text);
 
-const save = (submit = false) => {
-    editor.value.save().then((outputData) => {
-        dirty.value = false;
-        data.value = JSON.stringify(outputData);
-        if (submit) {
-            root.value.closest('form').submit();
-        }
-    }).catch((error) => {
-        console.error('Saving failed: ', error);
-    });
-}
-const debouncedSave = _.debounce(() => save(false), 250);
-
 onMounted(() => {
-    editor.value = new EditorJS({
-        holder: root.value,
-        data: data.value,
-        placeholder: 'Write something fun!',
-        tools: {
-            header: Header,
-            image: SimpleImage,
-            list: List,
-            table: Table,
-            underline: Underline,
+    editor.value = new Vditor(root.value, {
+        lang: 'en_US', // TODO: use current app language.
+        cache: {
+            // TODO: enable with work ID when editing existing works.
+            enable: false,
         },
-        onChange: () => {
-            dirty.value = true;
-            debouncedSave();
-        }
-    });
-
-    // Set value on form submit
-    root.value.closest('form').addEventListener('submit', (e) => {
-        if (dirty.value) {
-            save(true);
-            e.preventDefault();
-        }
+        minHeight: 360,
+        toolbarConfig: {
+            pin: true,
+        },
+        value: data.value,
+        input: content => {
+            data.value = content;
+        },
     });
 });
 </script>
